@@ -19,6 +19,8 @@ import (
 func main() {
 	addr := flag.String("a", ":9090", "address to listen on (host:port)")
 	pkgFile := flag.String("p", "", "package list")
+	certFile := flag.String("c", "", "certificate file")
+	keyFile := flag.String("k", "", "key file")
 	help := flag.Bool("help", false, "print usage")
 
 	flag.Parse()
@@ -27,7 +29,7 @@ func main() {
 		return
 	}
 
-	if *pkgFile == "" {
+	if *pkgFile == "" || *certFile == "" || *keyFile == "" {
 		flag.Usage()
 		os.Exit(1)
 	}
@@ -38,7 +40,7 @@ func main() {
 	}
 
 	fmt.Printf("Serving package(s) on %s...\n", *addr)
-	err = http.ListenAndServe(*addr, pl)
+	err = http.ListenAndServeTLS(*addr, *certFile, *keyFile, pl)
 	if err != nil {
 		log.Fatalln("Server failed to start:", err)
 	}
