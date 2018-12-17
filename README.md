@@ -13,7 +13,7 @@ While `go get` has limitations in accessing private repos directly, it provides 
 
 Ensure $GOPATH/bin is part of your $PATH. Install gorepos with,
 
-	go get github.com/tuxychandru/gorepos
+	go get github.com/sergey-shambir/gorepos
 
 The package list file must contain a line for each available package in the form,
 
